@@ -1,40 +1,58 @@
-const low = require('lowdb')
+const bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
 const { nanoid } = require("nanoid")
-const FileSync = require('lowdb/adapters/FileSync')
-
-const adapter = new FileSync('users.json')
-const db = low(adapter)
-
-// Set some defaults (required if your JSON file is empty)
-db.defaults([])
-	.write()
-
+const db = require("../../db/index.js")
+const jwt = require("jsonwebtoken")
+const JWT_KEY = process.env.JWT_KEY
 
 
 export default (req, res) => {
-	res.statusCode = 200
-
 	if (req.method == "POST") {
+		const { username, password } = JSON.parse(req.body)
+		if (username === undefined || password === undefined) {
+			res.json(JSON.stringify({ error: "invalid username or password" }))
+			res.end()
+		} else {
 
-		if (req.body.username === undefined || req.body.password === undefined)
-			res.json(JSON.stringify({ status: "error", error: "Undefined email or password field." }))
+			db.query('SELECT * FROM users WHERE username = $1', [username], (err, resp) => {
+				if (err) {
+					console.log(err.stack)
+					res.json(JSON.stringify({ error: "err >:(" }))
+					res.end()
+				} else if (resp.rows == 0) {
+					var id = nanoid()
+					var hashedPassword = bcrypt.hashSync(password, salt);
+					db.query('INSERT INTO users(id, username, password) VALUES($1, $2, $3)', [id, username, hashedPassword], (err, respo) => {
+						if (err) {
+							console.log(err.stack)
+							res.json(JSON.stringify({ error: "err >:(" }))
+							res.end()
+						} else {
 
-		db.getState()
+							jwt.sign({ id: id, username: username, password: hashedPassword },
+								JWT_KEY, 
+								{
+									expiresIn: 31556926
+								},
+								(err, token) => {
+									res.status(200).json({
+										success: true,
+										token: 'Bearer' + token,
+										userData: { id: id, username: username, password: hashedPassword }
+									})
+							})
+						}
+					})
+				} else {
+					res.json(JSON.stringify({ error: "username already exists" }))
+					res.end()
+				}
+			})
 
-		bcrypt.hash(req.body.password, 1, function (err, hash) {
-			res.json(			db.get()
-			.push({ id: nanoid(), username: req.body.username, password: hash })
-			.write())
-			
-			
 
-		});
-
-
-
-
+		}
+	} else {
+		res.json(JSON.stringify({ error: "get method" }))
+		res.end()
 	}
-
-	db.read()
-	res.json()
 }

@@ -1,0 +1,29 @@
+{
+  "users": [
+    {
+      "id": "e8fOrOKy4CW8Oc8iEug8d",
+      "username": "pedrinhofss",
+      "password": "$2b$04$1PLfjMvx.XqAay/Un/qbfe/PWIgYoQL8S0jGqjnICA.RXKmE/sbca"
+    },
+    {
+      "id": "RoSVaoeejua4P9XhklHGP",
+      "username": "pedrinhofss",
+      "password": "$2b$04$RofWUy7RsIoibKr7Xoxpu.pSTpQmTXRNxT0fMusS/iE9JZfcjygD."
+    },
+    {
+      "id": "f1xCrqxeZUl-C4_4cpWFl",
+      "username": "pedrinhofss",
+      "password": "$2b$04$IruRSt9PN5uBLtuAHFuEVu3WxU1xvO89cdXE1wgIN0tRKjPVQ62/2"
+    },
+    {
+      "id": "8NkFPQSDB1ddhHUo4lihj",
+      "username": "pedrinhofss",
+      "password": "$2b$04$Xz3xAKWEIPbgm7XdFpfAee5Uq0aYPk7QqwfmQ20SMdggxNVXlgEAS"
+    },
+    {
+      "id": "iZISm56N-GBUgZxTb2U9G",
+      "username": "pedrinhofss",
+      "password": "$2b$04$rAMUgxFuKJ4aFTdtGq3OUOywKQVh6e0AWR5YJxq3tyrketBDew/OG"
+    }
+  ]
+}

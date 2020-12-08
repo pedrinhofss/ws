@@ -1,11 +1,11 @@
 import { Input, Button } from '@material-ui/core';
 
 
-export default function Home() {
+export default function Login() {
 	//const [session, loading] = useSession()
 	var username = ""
 	var password = ""
-	return (
+    return(
 		<>
 			<form style={{
 				alignContent: "center"
@@ -21,7 +21,7 @@ export default function Home() {
 					alert("no username or password" + username + password);
 				} else {
 
-					fetch("/api/create", {
+					fetch("/api/login", {
 						method: "POST",
 						body: JSON.stringify({
 							username: username,
@@ -37,5 +37,5 @@ export default function Home() {
 			}}>Submit</Button>
 			</form>
 		</>
-	)
+    )
 }

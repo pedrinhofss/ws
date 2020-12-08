@@ -1,7 +1,7 @@
 import { Input, Button } from '@material-ui/core';
 
 
-export default function Home() {
+export default function Create() {
 	//const [session, loading] = useSession()
 	var username = ""
 	var password = ""
