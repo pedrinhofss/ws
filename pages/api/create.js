@@ -38,7 +38,7 @@ export default (req, res) => {
 									res.status(200).json({
 										success: true,
 										token: 'Bearer' + token,
-										userData: { id: id, username: username, password: hashedPassword }
+										userData: { id: id, username: username }
 									})
 							})
 						}
